@@ -1,8 +1,8 @@
 import {combineReducers} from '@reduxjs/toolkit';
-import paginationSlice from './slices/paginationSlice';
+import weatherSlice from './slices/weatherSlice';
 
 export const rootReducer = combineReducers({
-  pagination: paginationSlice,
+  weather: weatherSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

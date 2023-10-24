@@ -3,3 +3,7 @@ export type TWeatherState = {
   loading: 'idle' | 'pending' | 'fulfilled' | 'rejected';
   error: string | null | undefined;
 };
+
+export type TWeatherImages = {
+  [key: string]: number;
+};

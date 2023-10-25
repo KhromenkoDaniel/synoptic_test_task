@@ -18,12 +18,23 @@ function CustomDropdown({value, setValue, currentCity}: TCustomDropdown) {
   const selectedAmountOfDays = useSelector(
     (state: RootState) => state.weather.selectedAmountOfDays,
   );
+  const themeIsLight = useSelector(
+    (state: RootState) => state.weather.themeIsLight,
+  );
+  const dropdownStyles = {
+    backgroundColor: themeIsLight ? '#fff' : '#0f2c33',
+    borderColor: themeIsLight ? '#0f2c33' : '#fff',
+  };
+  const selectedTextStyles = {
+    color: themeIsLight ? '#0f2c33' : '#fff',
+  };
+
   return (
     <Dropdown
-      style={styles.dropdown}
+      style={[styles.dropdown, dropdownStyles]}
       itemContainerStyle={styles.itemContainerStyle}
       containerStyle={styles.containerStyle}
-      selectedTextStyle={styles.selectedTextStyle}
+      selectedTextStyle={[styles.selectedTextStyle, selectedTextStyles]}
       placeholderStyle={styles.placeholderStyle}
       data={daysData}
       labelField="label"

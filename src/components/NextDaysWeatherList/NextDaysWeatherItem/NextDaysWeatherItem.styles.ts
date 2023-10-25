@@ -8,8 +8,7 @@ export const styles = StyleSheet.create({
     width: 86,
     borderRadius: 12,
     paddingVertical: 8,
-    marginHorizontal: 4,
-    backgroundColor: 'rgba(255, 255, 255,0.2)',
+    marginHorizontal: 8,
     gap: 8,
   },
   wrapperItemDayImg: {

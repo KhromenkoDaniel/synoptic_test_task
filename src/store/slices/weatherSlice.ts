@@ -7,12 +7,17 @@ const initialState: TWeatherState = {
   data: null,
   loading: 'idle',
   error: null,
+  selectedAmountOfDays: '1',
 };
 
 const weatherSlice = createSlice({
   name: 'weather',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedAmountOfDays: (state, action) => {
+      state.selectedAmountOfDays = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchWeatherData.pending, state => {
@@ -28,5 +33,7 @@ const weatherSlice = createSlice({
       });
   },
 });
+
+export const {setSelectedAmountOfDays} = weatherSlice.actions;
 
 export default weatherSlice.reducer;

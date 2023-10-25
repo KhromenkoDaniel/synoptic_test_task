@@ -5,6 +5,7 @@ import {
   Platform,
   SafeAreaView,
   StatusBar,
+  Switch,
   Text,
   View,
 } from 'react-native';
@@ -17,8 +18,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {fetchWeatherData} from '../actions/weather';
 import {RootState} from '../store/root-reducer';
 import {AppDispatch} from '../store/store';
+import {setThemeIsLight} from '../store/slices/weatherSlice';
 
 import {opencageApiKey, weatherImages} from '../utils/constants';
+import BackgroundDarkImg from '../../assets/images/bg.png';
+import BackgroundLightImg from '../../assets/images/bgLight.png';
 
 import {styles} from './HomeScreen.styles';
 import CustomDropdown from '../components/CustomDropdown';
@@ -26,12 +30,15 @@ import NextDaysWeatherList from '../components/NextDaysWeatherList';
 import WeatherStat from '../components/WeatherStat';
 
 function HomeScreen(): JSX.Element {
-  const dispatch = useDispatch<AppDispatch>();
-  const weatherData = useSelector((state: RootState) => state.weather.data);
-
   const [currentCity, setCurrentCity] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [currentOptionInDropdown, setcurrentOptionInDropdown] = useState('1');
+
+  const dispatch = useDispatch<AppDispatch>();
+  const weatherData = useSelector((state: RootState) => state.weather.data);
+  const themeIsLight = useSelector(
+    (state: RootState) => state.weather.themeIsLight,
+  );
 
   const fetchWeather = useCallback(() => {
     try {
@@ -134,13 +141,21 @@ function HomeScreen(): JSX.Element {
     currentOptionInDropdown,
   ]);
 
+  const toggleSwitch = () => {
+    dispatch(setThemeIsLight(!themeIsLight));
+  };
+
+  const textStyles = {
+    color: themeIsLight ? '#0f2c33' : '#fff',
+  };
+
   return (
     <View style={styles.wrapper}>
-      <StatusBar barStyle={'light-content'} />
+      <StatusBar barStyle={themeIsLight ? 'dark-content' : 'light-content'} />
       <Image
         style={styles.bgImage}
         blurRadius={70}
-        source={require('../../assets/images/bg.png')}
+        source={themeIsLight ? BackgroundLightImg : BackgroundDarkImg}
       />
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.header}>
@@ -149,9 +164,13 @@ function HomeScreen(): JSX.Element {
             setValue={setcurrentOptionInDropdown}
             currentCity={currentCity}
           />
-          <View style={styles.themeSwitcher}>
-            <Text>1</Text>
-          </View>
+          <Switch
+            style={styles.themeSwitcher}
+            trackColor={{false: '#767577', true: '#81b0ff'}}
+            thumbColor={themeIsLight ? '#f5dd4b' : '#f4f3f4'}
+            onValueChange={toggleSwitch}
+            value={themeIsLight}
+          />
         </View>
 
         {loading ? (
@@ -168,7 +187,9 @@ function HomeScreen(): JSX.Element {
           <View>
             {currentCity && (
               <View style={styles.container}>
-                <Text style={styles.currentCityText}>{currentCity}</Text>
+                <Text style={[styles.currentCityText, textStyles]}>
+                  {currentCity}
+                </Text>
                 {weatherData && (
                   <>
                     <View style={styles.weatherImageContainer}>
@@ -180,10 +201,10 @@ function HomeScreen(): JSX.Element {
                       />
                     </View>
                     <View>
-                      <Text style={styles.temperatureText}>
+                      <Text style={[styles.temperatureText, textStyles]}>
                         {weatherData.current.temp_c}&#176;
                       </Text>
-                      <Text style={styles.conditionText}>
+                      <Text style={[styles.conditionText, textStyles]}>
                         {weatherData.current.condition.text}
                       </Text>
                     </View>

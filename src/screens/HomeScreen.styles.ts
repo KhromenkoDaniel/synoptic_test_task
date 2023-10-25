@@ -72,11 +72,13 @@ export const styles = StyleSheet.create({
   header: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '100%',
   },
   themeSwitcher: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 100,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 });

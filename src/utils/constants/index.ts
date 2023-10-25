@@ -21,3 +21,10 @@ export const weatherImages: TWeatherImages = {
   Mist: require('../../../assets/images/mist.png'),
   Other: require('../../../assets/images/moderaterain.png'),
 };
+
+export const daysData = [
+  {label: 'Today', value: '1'},
+  {label: 'Next Three Days', value: '3'},
+  {label: 'Week', value: '7'},
+  {label: 'Two Weeks', value: '14'},
+];

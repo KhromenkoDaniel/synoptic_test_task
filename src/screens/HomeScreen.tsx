@@ -9,21 +9,29 @@ import {
   View,
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
+import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
+import axios from 'axios';
+import * as Progress from 'react-native-progress';
+
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchWeatherData} from '../actions/weather';
 import {RootState} from '../store/root-reducer';
-import axios from 'axios';
 import {AppDispatch} from '../store/store';
+
 import {opencageApiKey, weatherImages} from '../utils/constants';
-import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
+
 import {styles} from './HomeScreen.styles';
-import * as Progress from 'react-native-progress';
+import CustomDropdown from '../components/CustomDropdown';
+import NextDaysWeatherList from '../components/NextDaysWeatherList';
+import WeatherStat from '../components/WeatherStat';
 
 function HomeScreen(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
   const weatherData = useSelector((state: RootState) => state.weather.data);
+
   const [currentCity, setCurrentCity] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [currentOptionInDropdown, setcurrentOptionInDropdown] = useState('1');
 
   const fetchWeather = useCallback(() => {
     try {
@@ -111,8 +119,20 @@ function HomeScreen(): JSX.Element {
 
   useEffect(() => {
     setLoading(true);
-    checkAndRequestLocationPermission().then();
-  }, [checkAndRequestLocationPermission]);
+    checkAndRequestLocationPermission().then(() => {
+      dispatch(
+        fetchWeatherData({
+          city: currentCity,
+          selectedAmountOfDays: currentOptionInDropdown,
+        }),
+      );
+    });
+  }, [
+    checkAndRequestLocationPermission,
+    currentCity,
+    dispatch,
+    currentOptionInDropdown,
+  ]);
 
   return (
     <View style={styles.wrapper}>
@@ -122,7 +142,18 @@ function HomeScreen(): JSX.Element {
         blurRadius={70}
         source={require('../../assets/images/bg.png')}
       />
-      <SafeAreaView style={styles.wrapper}>
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.header}>
+          <CustomDropdown
+            value={currentOptionInDropdown}
+            setValue={setcurrentOptionInDropdown}
+            currentCity={currentCity}
+          />
+          <View style={styles.themeSwitcher}>
+            <Text>1</Text>
+          </View>
+        </View>
+
         {loading ? (
           <View style={styles.progressBar}>
             <Progress.CircleSnail
@@ -148,7 +179,7 @@ function HomeScreen(): JSX.Element {
                         style={styles.weatherImage}
                       />
                     </View>
-                    <View style={styles.infoBlock}>
+                    <View>
                       <Text style={styles.temperatureText}>
                         {weatherData.current.temp_c}&#176;
                       </Text>
@@ -157,34 +188,25 @@ function HomeScreen(): JSX.Element {
                       </Text>
                     </View>
                     <View style={styles.otherStatsInfoWrapper}>
-                      <View style={styles.otherStatsContainer}>
-                        <Image
-                          source={require('../../assets/icons/wind.png')}
-                          style={styles.otherStatsContainerImg}
-                        />
-                        <Text style={styles.otherStatsContainerText}>
-                          {weatherData.current?.wind_kph}km
-                        </Text>
-                      </View>
-                      <View style={styles.otherStatsContainer}>
-                        <Image
-                          source={require('../../assets/icons/drop.png')}
-                          style={styles.otherStatsContainerImg}
-                        />
-                        <Text style={styles.otherStatsContainerText}>
-                          {weatherData.current?.humidity}%
-                        </Text>
-                      </View>
-                      <View style={styles.otherStatsContainer}>
-                        <Image
-                          source={require('../../assets/icons/pressure.png')}
-                          style={styles.otherStatsContainerImg}
-                        />
-                        <Text style={styles.otherStatsContainerText}>
-                          {weatherData.current?.pressure_mb}mb
-                        </Text>
-                      </View>
+                      <WeatherStat
+                        iconSource={require('../../assets/icons/wind.png')}
+                        value={weatherData.current?.wind_kph}
+                        label="km"
+                      />
+                      <WeatherStat
+                        iconSource={require('../../assets/icons/drop.png')}
+                        value={weatherData.current?.humidity}
+                        label="%"
+                      />
+                      <WeatherStat
+                        iconSource={require('../../assets/icons/pressure.png')}
+                        value={weatherData.current?.pressure_mb}
+                        label="mb"
+                      />
                     </View>
+                    {+currentOptionInDropdown > 1 && (
+                      <NextDaysWeatherList weather={weatherData} />
+                    )}
                   </>
                 )}
               </View>

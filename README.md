@@ -1,79 +1,93 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Star Wars App
 
-# Getting Started
+## Table of Contents
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+- [About](#about)
+- [Tech Stack](#tech-stack)
+- [Third-Party Libraries](#third-party-libraries)
+- [Screenshots](#screenshots)
+- [Components and Features](#components-and-features)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Run the Application](#run-the-application)
 
-## Step 1: Start the Metro Server
+## About
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+This Synoptic Test Task is a mobile application developed using React Native, designed for both iOS and Android platforms. The app's primary goal is to showcase various features and best practices when working with React Native and related technologies.The app allows users to check forecast in their city\region for today/next 3 days/next week/next 2 weeks. It includes features like fetching weather data, dark/light theme toggling, and a custom dropdown component.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+This README provides an overview of the project, its features, and instructions for running the application.
 
-```bash
-# using npm
-npm start
+## Tech Stack
 
-# OR using Yarn
-yarn start
-```
+- **React Native CLI:**
 
-## Step 2: Start your Application
+- **Redux Toolkit (RTK):**
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+- **TypeScript:**
 
-### For Android
+## Third-Party Libraries
 
-```bash
-# using npm
-npm run android
+Here's the list of third-party libraries used in the Synoptic App:
 
-# OR using Yarn
-yarn android
-```
+- **axios**
+- **@react-navigation/native**
+- **react-native-element-dropdown**
+- **react-native-geolocation-service**
+- **react-native-heroicons**
+- **react-native-permissions**
+- **react-native-progress**
+- **react-native-safe-area-context**
+- **react-native-screens**
+- **react-native-svg**
+- **react-native-svg-transformer**
 
-### For iOS
 
-```bash
-# using npm
-npm run ios
+## ScreenShots
 
-# OR using Yarn
-yarn ios
-```
+<h3>The working app on both platforms(IOS & Android)</h3>
+<img alt="App ScreenShots" src="https://i.imgur.com/wNUMo7g.png">
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Components and Features
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+### HomeScreen
 
-## Step 3: Modifying your App
+- The main screen of the app displaying weather information.
+- Utilizes geolocation to fetch weather data for the user's location.
+- Displays the current weather, a dropdown to select the number of days for the forecast, and a switch to toggle the dark/light theme.
+- Provides loading indicators and error handling for better user experience.
+- Presents weather data in a user-friendly and aesthetically pleasing manner.
 
-Now that you have successfully run the app, let's modify it.
+### Additional Features
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+- The app performs API requests through `createAsyncThunk`.
+- Depending on weather condition the main image changes.
+- The user interface (UI/UX) is designed to provide a user-friendly experience.
+- The beautiful architecture decomposition simplifies complex systems into clear and elegant structures.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+## Project Structure
 
-## Congratulations! :tada:
+The project follows a structured organization:
 
-You've successfully run and modified your React Native App. :partying_face:
+<img alt="Project Structure" src="https://i.imgur.com/j5TZ03b_d.webp?maxwidth=760&fidelity=grand">
 
-### Now what?
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+## Getting Started
 
-# Troubleshooting
+Getting Started
+Clone the Repository:
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+git clone https://github.com/KhromenkoDaniel/synoptic_test_task.git
 
-# Learn More
+Install Dependencies:
 
-To learn more about React Native, take a look at the following resources:
+cd synoptic_test_task && npm install
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Run the Application:
+
+For iOS:
+
+npx react-native run-ios
+
+For Android:
+
+npx react-native run-android

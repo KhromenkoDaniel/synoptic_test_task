@@ -1,4 +1,4 @@
-# Star Wars App
+# Synoptic App
 
 ## Table of Contents
 

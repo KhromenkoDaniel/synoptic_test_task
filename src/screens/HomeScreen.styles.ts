@@ -15,10 +15,14 @@ export const styles = StyleSheet.create({
     height: '100%',
     position: 'absolute',
   },
-  progressBar: {
+  safeAreaView: {
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 100,
+    backgroundColor: 'transparent',
+  },
+  progressBar: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -27,11 +31,9 @@ export const styles = StyleSheet.create({
   container: {
     marginHorizontal: 16,
     display: 'flex',
-    justifyContent: 'space-around',
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 100,
-    marginBottom: 8,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
   },
   weatherImage: {
     width: 200,
@@ -47,10 +49,6 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-  },
-  infoBlock: {
-    marginTop: 8,
-    marginBottom: 8,
   },
   temperatureText: {
     textAlign: 'center',
@@ -71,21 +69,14 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 16,
   },
-  otherStatsContainer: {
+  header: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 16,
   },
-  otherStatsContainerImg: {
-    width: 20,
-    height: 20,
-  },
-  otherStatsContainerText: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: '600',
-    lineHeight: 24,
-    marginLeft: 5,
+  themeSwitcher: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 100,
   },
 });

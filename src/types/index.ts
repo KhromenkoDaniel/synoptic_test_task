@@ -3,6 +3,7 @@ export type TWeatherState = {
   loading: 'idle' | 'pending' | 'fulfilled' | 'rejected';
   error: string | null | undefined;
   selectedAmountOfDays: string;
+  themeIsLight: boolean;
 };
 
 export type TWeatherData = {

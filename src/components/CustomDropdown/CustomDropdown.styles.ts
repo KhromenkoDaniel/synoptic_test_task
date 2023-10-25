@@ -3,15 +3,12 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   dropdown: {
     margin: 16,
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 50,
     backgroundColor: '#0F2C33FF',
     borderColor: '#fff',
-    color: '#fff',
     borderWidth: 2,
     borderRadius: 12,
     padding: 6,
+    width: '50%',
   },
   containerStyle: {
     backgroundColor: '#fff',

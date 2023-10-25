@@ -4,6 +4,9 @@ import {CalendarDaysIcon} from 'react-native-heroicons/solid';
 
 import {TDateTimeFormatOptions, TNextDaysWeatherList} from '../../types';
 
+import {useSelector} from 'react-redux';
+import {RootState} from '../../store/root-reducer';
+
 import {styles} from './NextDaysWeatherList.styles';
 import NextDaysWeatherItem from './NextDaysWeatherItem';
 
@@ -16,11 +19,21 @@ function NextDaysWeatherList({weather}: TNextDaysWeatherList) {
     return dayName;
   }
 
+  const themeIsLight = useSelector(
+    (state: RootState) => state.weather.themeIsLight,
+  );
+
+  const textStyles = {
+    color: themeIsLight ? '#0f2c33' : '#fff',
+  };
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.calendarDays}>
         <CalendarDaysIcon size="22" color="white" />
-        <Text style={styles.calendarDaysText}>Daily forecast:</Text>
+        <Text style={[styles.calendarDaysText, textStyles]}>
+          Daily forecast:
+        </Text>
       </View>
       <ScrollView
         horizontal

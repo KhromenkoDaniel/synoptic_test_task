@@ -8,6 +8,7 @@ const initialState: TWeatherState = {
   loading: 'idle',
   error: null,
   selectedAmountOfDays: '1',
+  themeIsLight: false,
 };
 
 const weatherSlice = createSlice({
@@ -16,6 +17,9 @@ const weatherSlice = createSlice({
   reducers: {
     setSelectedAmountOfDays: (state, action) => {
       state.selectedAmountOfDays = action.payload;
+    },
+    setThemeIsLight: (state, action) => {
+      state.themeIsLight = action.payload;
     },
   },
   extraReducers: builder => {
@@ -34,6 +38,6 @@ const weatherSlice = createSlice({
   },
 });
 
-export const {setSelectedAmountOfDays} = weatherSlice.actions;
+export const {setSelectedAmountOfDays, setThemeIsLight} = weatherSlice.actions;
 
 export default weatherSlice.reducer;
